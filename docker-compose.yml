@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  aether-acm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aether-acm
+    ports:
+      - "8000:8000"
+    volumes:
+      - aether-data:/app/data
+    environment:
+      - DB_PATH=/app/data/aether.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  aether-data:
