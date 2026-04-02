@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AETHER-ACM | Autonomous Constellation Manager</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+
+<div id="boot-overlay">
+  <div class="boot-card">
+    <div class="boot-icon">🛰️</div>
+    <div class="boot-title">AETHER-ACM</div>
+    <div class="boot-sub">Autonomous Constellation Manager</div>
+    <div class="boot-progress"><div class="boot-fill" id="boot-fill"></div></div>
+    <div class="boot-status" id="boot-status">Initializing orbital network...</div>
+  </div>
+</div>
+
+<div id="app">
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">⌖</div>
+      <div class="logo-text">AETHER<span class="logo-accent">ACM</span></div>
+    </div>
+    <div class="header-metrics">
+      <div class="metric-badge"><span class="metric-badge-label">Sats</span><span class="metric-badge-value" id="stat-sats">0</span></div>
+      <div class="metric-badge"><span class="metric-badge-label">Debris</span><span class="metric-badge-value" id="stat-debris">0</span></div>
+      <div class="metric-badge"><span class="metric-badge-label">Alerts</span><span class="metric-badge-value" id="stat-alerts">0</span></div>
+      <div class="health-badge" id="health-badge">
+        <div class="health-dot" id="health-dot"></div>
+        <span class="health-value" id="health-value">--%</span>
+        <span class="metric-badge-label health-label-sys">SYS HEALTH</span>
+      </div>
+      <div class="auto-control active" id="auto-toggle">
+        <span class="autopilot-label">AUTOPILOT</span>
+        <div class="toggle-switch" id="auto-switch"><div class="toggle-knob"></div></div>
+      </div>
+      <button class="sitrep-button" id="sitrep-btn">📡 Sitrep</button>
+    </div>
+  </header>
+
+  <div class="dashboard">
+    <div class="map-panel panel">
+      <div class="panel-header">
+        <span class="panel-title">🌍 Orbital Tracking · Ground Track</span>
+        <div class="map-controls">
+          <button class="map-btn active" id="toggle-debris">💠 Debris</button>
+          <button class="map-btn active" id="toggle-terminator">🌓 Terminator</button>
+        </div>
+      </div>
+      <div id="map-container">
+        <div id="map"></div>
+        <canvas id="debris-canvas"></canvas>
+        <svg id="terminator-svg" width="100%" height="100%"></svg>
+      </div>
+    </div>
+
+    <div class="timeline-panel panel">
+      <div class="bottom-row-grid">
+        <div class="alert-col">
+          <div class="panel-header"><span class="panel-title">⚠️ Active CDM Alerts</span></div>
+          <div id="alerts-list" class="alerts-scroll"></div>
+        </div>
+        <div class="fleet-col">
+          <div class="panel-header"><span class="panel-title">📊 Fleet Status</span></div>
+          <div class="metrics-stats">
+            <div class="metric-block"><div class="metric-number green" id="nominal-count">—</div><div class="metric-status-label">NOMINAL</div></div>
+            <div class="metric-block"><div class="metric-number amber" id="evading-count">—</div><div class="metric-status-label">EVADING</div></div>
+            <div class="metric-block"><div class="metric-number red" id="recovery-count">—</div><div class="metric-status-label">CRITICAL</div></div>
+          </div>
+          <div id="event-log" class="event-log"></div>
+          <button id="advance-btn" class="advance-button">▶ Advance Sim +1 Hr</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-sidebar">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">🎯 Conjunction Bullseye</span>
+          <span id="bullseye-label" class="panel-mono-label">ALL SATS</span>
+        </div>
+        <div class="card-body bullseye-wrapper">
+          <canvas id="bullseye-canvas" width="280" height="280"></canvas>
+          <div class="legend-row">
+            <span class="legend-green">● Safe</span>
+            <span class="legend-amber">● Warn</span>
+            <span class="legend-red">● Crit</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="panel panel-flex">
+        <div class="panel-header">
+          <span class="panel-title">⛽ Propellant Levels</span>
+          <span id="fuel-avg" class="panel-mono-label">AVG --%</span>
+        </div>
+        <div class="card-body">
+          <div id="fuel-grid" class="fuel-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="modal-title-wrapper">📋 SITUATION REPORT</span>
+      <button id="close-modal" class="modal-close-btn">✕</button>
+    </div>
+    <div id="sitrep-body" class="modal-body"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/static/js/dashboard.js"></script>
+</body>
+</html>
