@@ -2,8 +2,6 @@
 
 ## Autonomous Constellation Manager — National Space Hackathon 2026
 
-### IIT Delhi · Orbital Debris Avoidance & Constellation Management System**
-
 ---
 
 ## Overview
