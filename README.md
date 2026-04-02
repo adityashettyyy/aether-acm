@@ -284,11 +284,6 @@ Tests cover: energy conservation in RK4, Tsiolkovsky equation accuracy, ECI↔la
 | UI/UX & Visualization | 15% | Orbital Insight full-screen dark dashboard |
 | Code Quality | 10% | Modular architecture, typed schemas, docstrings |
 
----
-
-## Team
-
-**Team AETHER** — National Space Hackathon 2026, IIT Delhi
 
 ---
 
